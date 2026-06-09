@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How I shipped 21 AI agents in 6 weeks — Clow case study</title>
+<meta name="description" content="Solo builder. €0 raised. 9 Telegram bots, 8 web apps, 1 token economy. Here's the exact stack and 7-day product loop.">
+<meta property="og:title" content="How I shipped 21 AI agents in 6 weeks — Clow case study">
+<meta property="og:description" content="Solo builder. €0 raised. 9 bots, 8 apps, 1 token economy. Exact stack + 7-day loop.">
+<meta property="og:url" content="https://clow-tau.vercel.app/case_study.html">
+<meta property="og:type" content="article">
+
+<link rel="icon" type="assets/img/favicons/png" href="/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="assets/img/favicons/svg+xml" href="/favicon.svg" />
+<link rel="shortcut icon" href="assets/img/favicons/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicons/apple-touch-icon.png" />
+<meta name="apple-mobile-web-app-title" content="clow studio" />
+<link rel="manifest" href="/site.webmanifest" />
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root {
+    --bg:#0a0a0f;
+    --bg2:#12121a;
+    --bg3:#1a1a2e;
+    --text:#e8e8f0;
+    --text2:#8888aa;
+    --accent:#6c5ce7;
+    --accent2:#00cec9;
+    --accent3:#fd79a8;
+    --grad:linear-gradient(135deg,#6c5ce7,#00cec9);
+    --radius:12px;
+    --shadow:0 4px 24px rgba(108,92,231,0.15);
+    --green:#00e676;
+  }
+  body {
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    line-height:1.6;
+    padding-top: 100px;
+  }
+  a{color:var(--accent2);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .container{max-width:1200px;margin:0 auto;padding:0 24px}
+
+  /* Nav Bar Architecture */
+  nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(10,10,15,0.9);backdrop-filter:blur(12px);border-bottom:1px solid rgba(108,92,231,0.1);padding:16px 24px}
+  nav .container{display:flex;align-items:center;justify-content:space-between}
+  nav .logo-area{display:flex;align-items:center;gap:12px;cursor:pointer}
+  nav .logo-img{height:32px;border-radius:6px;border:1px solid rgba(108,92,231,0.2)}
+  nav .logo-text{font-size:1.25rem;font-weight:700;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  nav .nav-links{display:flex;gap:24px;align-items:center}
+  nav .nav-links a{color:var(--text2);font-size:0.875rem;transition:color 0.2s;cursor:pointer;font-weight:500;text-decoration:none}
+  nav .nav-links a:hover, nav .nav-links a.active{color:var(--text);border-bottom:2px solid var(--accent2);padding-bottom:2px}
+  nav .cta-btn{background:var(--grad);color:#fff!important;padding:8px 20px;border-radius:8px;font-weight:600;font-size:0.875rem;text-decoration:none}
+  .mobile-toggle{display:none;background:none;border:none;color:var(--text);font-size:1.5rem;cursor:pointer}
+
+  .case-container {
+    max-width: 760px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px 24px 80px;
+    color: #d4d2dc;
+    line-height: 1.7;
+  }
+  .case-container h1 {
+    font-size: 2.2rem;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 12px;
+    color: #ffffff;
+  }
+  .case-container .lede {
+    color: #94919c;
+    font-size: 1.1rem;
+    margin-bottom: 32px;
+  }
+  .case-container h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-top: 40px;
+    margin-bottom: 12px;
+  }
+  .case-container h3 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #9d8cff;
+    margin-top: 24px;
+    margin-bottom: 8px;
+  }
+  .case-container p { margin-bottom: 16px; color: #b8b6c2; }
+  .case-container ul { margin-bottom: 16px; padding-left: 24px; color: #b8b6c2; }
+  .case-container li { margin-bottom: 8px; }
+  .case-container strong { color: #ffffff; }
+  .case-container code {
+    background: #1e1a2e;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    color: #5ce3d1;
+  }
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin: 24px 0;
+  }
+  .stat-pill {
+    background: #110f1e;
+    border: 1px solid #1e1a2e;
+    border-radius: 12px;
+    padding: 16px 12px;
+    text-align: center;
+  }
+  .stat-pill .n { font-size: 1.6rem; font-weight: 700; color: #7b61ff; display: block; }
+  .stat-pill .l { font-size: 0.75rem; color: #6b6873; }
+  .cta-bar {
+    background: linear-gradient(135deg, #1a1230 0%, #0f1a1e 100%);
+    border: 1px solid rgba(92, 227, 209, 0.25);
+    border-radius: 16px;
+    padding: 28px 24px;
+    margin: 40px 0;
+    text-align: center;
+  }
+  .cta-bar h3 { color: #5ce3d1; margin-top: 0; }
+  .cta-bar p { margin-bottom: 16px; }
+  .cta-bar .btn {
+    display: inline-block;
+    background: linear-gradient(135deg, #8a7cff, #6b53ff);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 20px;
+    font-weight: 600;
+    text-decoration: none;
+  }
+  blockquote {
+    border-left: 3px solid #7b61ff;
+    padding-left: 16px;
+    margin: 24px 0;
+    color: #9d8cff;
+    font-style: italic;
+  }
+
+  /* Premium Footer Layout */
+  .site-footer-premium { background: var(--bg2); padding: 80px 0 40px; border-top: 1px solid rgba(108,92,231,0.1); color: var(--text); }
+  .site-footer-premium .grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 48px; margin-bottom: 40px; }
+  .footer-desc { font-size: 0.9rem; color: var(--text2); line-height: 1.6; margin-bottom: 20px; max-width: 460px; }
+  .footer-social { display: flex; gap: 12px; margin-top: 16px; }
+  .social-btn { background: var(--bg3); color: var(--text2); border: 1px solid rgba(108,92,231,0.15); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; transition: all 0.2s ease; }
+  .social-btn:hover { background: var(--grad); color: #fff; border-color: transparent; transform: translateY(-2px); box-shadow: var(--shadow); }
+  .footer-payments { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
+  .payment-link { display: inline-flex; align-items: center; background: var(--bg3); color: var(--text); border: 1px solid rgba(108,92,231,0.15); padding: 8px 16px; border-radius: 8px; font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: all 0.2s ease; }
+  .payment-link:hover { border-color: var(--accent2); background: rgba(0,206,201,0.05); color: var(--accent2); }
+  .toast-msg{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);background:var(--bg3);border:1px solid rgba(108,92,231,0.3);border-radius:8px;padding:.75rem 1.5rem;color:var(--green);font-size:.9rem;opacity:0;transition:opacity .3s;pointer-events:none;z-index:2000}
+  .toast-msg.show{opacity:1}
+
+  @media (max-width: 768px) {
+    .stat-row { grid-template-columns: repeat(2, 1fr); }
+    .site-footer-premium .grid { grid-template-columns: 1fr; gap: 32px; }
+    nav .nav-links{display:none}
+    .mobile-toggle{display:block}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+<div class="container">
+<div class="logo-area" onclick="window.location.href='index.html'">
+<img src="assets/img/clowlogo_377x377.jpg" alt="clow.studio 🦞" class="logo-img">
+<div class="logo-text">clow<span>studio</span></div>
+</div>
+<div class="nav-links" id="navLinks">
+<a href="index.html">Products</a>
+<a href="index.html">Engine</a>
+<a href="index.html">Agent Economy</a>
+<a href="index.html">Support</a>
+<a href="case_study.html" class="active">Case Study</a>
+<a href="index.html#pricing">Pricing</a>
+<a href="index.html#capture">Contact</a>
+<a href="https://t.me/deeptechx_bot" class="cta-btn">Get Started</a>
+</div>
+<button class="mobile-toggle" onclick="document.getElementById('navLinks').classList.toggle('open')">☰</button>
+</div>
+</nav>
+
+<main class="case-container">
+
+<h1>How I shipped 21 AI agents in 6 weeks</h1>
+<p class="lede">Solo builder. €0 raised. 9 Telegram bots, 8 web apps, 1 token economy. Here's the exact stack, the 7-day product loop, and what I'd do differently.</p>
+
+<div class="stat-row">
+    <div class="stat-pill"><span class="n">21</span><span class="l">Products shipped</span></div>
+    <div class="stat-pill"><span class="n">6w</span><span class="l">Calendar time</span></div>
+    <div class="stat-pill"><span class="n">€0</span><span class="l">Capital raised</span></div>
+    <div class="stat-pill"><span class="n">1</span><span class="l">Person</span></div>
+</div>
+
+<h2>The wedge</h2>
+<p>One promise: <strong>productize yourself in 7 days</strong>. Pick something you already do well — auditing crypto contracts, planning travel, writing legal drafts, running mindfulness routines — and let an AI agent package it into a service. Charge for it. Iterate.</p>
+
+<p>That promise is the entire bet. Every product in the Clow ecosystem is a proof point: <em>"a single person, with AI agents, can ship a real product in a week."</em></p>
+
+<h2>The stack (boring on purpose)</h2>
+
+<h3>Frontend</h3>
+<ul>
+    <li>Static HTML + vanilla CSS. No framework. No bundler. <strong>2 files for the landing.</strong></li>
+    <li>Vercel for the marketing site (auto-deploy on push).</li>
+    <li>Netlify for tools (<a href="https://bmc-agent.netlify.app/" target="_blank" rel="noopener">BMC generator</a>, <a href="https://user-story-agent.netlify.app/" target="_blank" rel="noopener">user story generator</a>).</li>
+    <li>Plausible analytics (cookieless, GDPR-safe).</li>
+</ul>
+
+<h3>Bots</h3>
+<ul>
+    <li>Python (FastAPI or python-telegram-bot).</li>
+    <li>OpenAI / Anthropic APIs for the LLM layer.</li>
+    <li>Each bot exposes 3-8 commands and one daily nudge. That's it.</li>
+    <li>Deployed to Fly.io or Railway. €2-3/month per bot.</li>
+</ul>
+
+<h3>Token economy</h3>
+<ul>
+    <li>$CLOW = off-chain ledger today, TON Jetton planned Q3.</li>
+    <li>Cross-bot quests: complete an action in bot A, unlock a discount in bot B.</li>
+    <li>The token is the social fabric — not the product. Don't lead with it.</li>
+</ul>
+
+<h2>The 7-day product loop</h2>
+<p>Every Clow product follows the same loop. If you can run this loop, you can ship anything.</p>
+
+<h3>Day 1 — Wedge</h3>
+<p>Write the one-sentence promise. "This agent helps <em>X</em> do <em>Y</em> in <em>Z</em> minutes." If you can't fit it in 15 words, the wedge is wrong.</p>
+
+<h3>Day 2 — BMC</h3>
+<p>Run the Business Model Canvas generator. Lock the customer segment + value proposition + revenue model. Everything else flows from this.</p>
+
+<h3>Day 3 — User stories</h3>
+<p>Run the user story generator. Pick the 3 stories with highest impact × lowest effort. Ignore the rest.</p>
+
+<h3>Day 4 — MVP commands</h3>
+<p>Wire the 3 stories into bot commands. <code>/audit</code>, <code>/plan</code>, <code>/draft</code> — whatever the verbs are for your domain. Each command does <em>one</em> thing well.</p>
+
+<h3>Day 5 — Polish + tier</h3>
+<p>Add: free quota (10 msgs/day), Pro upgrade (€9.99/mo unlimited), and one "wow" command behind the paywall.</p>
+
+<h3>Day 6 — Distribution</h3>
+<p>Telegram deep-link with <code>?start=src_X</code> tracking. Plausible event tags on every CTA. Without attribution you can't evolve.</p>
+
+<h3>Day 7 — Launch + measure</h3>
+<p>One post on LinkedIn or X. One Discord drop. One BotFather description update. Then measure: starts, Pro clicks, daily active users. <strong>Repeat next Monday.</strong></p>
+
+<h2>What I'd do differently</h2>
+<blockquote>"Distribution &gt; product." This is the lesson. I built 21 products before I built one funnel. Don't make my mistake.</blockquote>
+
+<ul>
+    <li><strong>Build the funnel first.</strong> Analytics + deep-link tracking + 1 case study + 1 LinkedIn post — before product #2.</li>
+    <li><strong>Lead with one wedge.</strong> "21 products" is a graveyard signal. "Productize yourself in 7 days" is a wedge.</li>
+    <li><strong>Don't gate the CTA.</strong> I had a "Coming Soon" modal on Explore for 4 weeks. Killed the funnel.</li>
+    <li><strong>Token last, product first.</strong> $CLOW only matters once the agents have users. Don't lead with token economics.</li>
+</ul>
+
+<h2>The honest revenue number</h2>
+<p>Briefly €0 MRR at target initialization. I'm publishing this case study so the next builder doesn't waste 6 weeks shipping product before funnel. <strong>The point isn't "look how much I made."</strong> The point is: the stack works, the loop works, and a single person with AI agents can ship faster than a 10-person team that's stuck in meetings.</p>
+
+<div class="cta-bar">
+    <h3>Run the 7-day loop yourself</h3>
+    <p>@productization_bot will walk you through wedge → BMC → user stories → MVP → launch. Free tier: 10 messages/day.</p>
+    <a class="btn" href="https://t.me/productization_bot?start=src_case_bottom" target="_blank" rel="noopener">Start Free in Telegram →</a> Or
+    <a class="cta-btn" href="https://productizeyou.online" target="_blank" rel="noopener">Try the We App →</a>
+</div>
+
+</main>
+
+<footer class="site-footer-premium">
+  <div class="container">
+    <div class="grid">
+      <div>
+        <div class="logo-area" style="margin-bottom:16px;">
+          <div class="logo-text">clow<span>studio</span></div>
+        </div>
+        <p class="footer-desc">AI ecosystem. 9 bots, one economy. One AI bot ships your product. Then explore 20 more — travel, invest, security, wellness, legal, geosim — all under a unified agent-powered token economy.</p>
+        <div class="footer-social">
+          <a href="https://github.com/dnzengou/wandersync-travel" target="_blank" class="social-btn"><i class="fa-brands fa-github"></i></a>
+          <a href="https://www.linkedin.com/in/dnzengou" target="_blank" class="social-btn"><i class="fa-brands fa-linkedin-in"></i></a>
+        </div>
+      </div>
+
+      <div>
+        <h4>Products</h4>
+        <p style="margin-bottom: 6px;"><a href="index.html">Clow Front Store</a></p>
+        <p style="margin-bottom: 6px;"><a href="https://wandersync.life" target="_blank">WanderSync App</a></p>
+        <p style="margin-bottom: 6px;"><a href="https://qdefense.pro" target="_blank">QDefense.pro</a></p>
+      </div>
+
+      <div>
+        <h4>Project Support Links</h4>
+        <p style="font-size:0.8rem; color:var(--text2); margin-bottom:12px;">Transmit gas tokens or coordinate contributions:</p>
+        <div class="footer-payments">
+          <a href="https://buymeacoffee.com/yavro" target="_blank" class="payment-link">☕ Buy Me a Coffee</a>
+          <span class="payment-link" onclick="triggerDirectCopy('UQBvgWPdj9J7SUMQCJxHvVXTc6uNE10SbB2g1waTxrh_4liP', 'TON address copied')">💎 TON </span>
+          <span class="payment-link" onclick="triggerDirectCopy('0xB2c4D12e01Bb3edAb015FaA441FD04B566b186Ba', 'Multi-chain hex address copied')">🔷 ETH/BNB/SOL/... </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="bottom" style="border-top: 1px solid rgba(108,92,231,0.1); padding-top: 24px; text-align: center; font-size: 0.8rem; color: var(--text2);">
+      <p>© 2026 <span id="secret-portal-trigger" style="cursor: pointer; color: var(--text2)">CLOW</span>. Built by <a href="https://desiredsolutions.space" target="_blank">Desired Solutions with ❤️ and ☕. Powered by 🦞 PicoClaw. </p>
+    </div>
+  </div>
+</footer>
+
+<div class="toast-msg" id="toastBox">✅ Notification updated</div>
+
+<script>
+function triggerDirectCopy(textToCopy, toastMessage) {
+  navigator.clipboard.writeText(textToCopy).then(() => {
+    const box = document.getElementById('toastBox');
+    box.textContent = toastMessage;
+    box.classList.add('show');
+    setTimeout(() => box.classList.remove('show'), 2000);
+  });
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clow.studio — AI Ecosystem by Desired Solutions</title>
+<meta name="description" content="Clow.studio: 9 AI bots, agent economy, and cross-platform intelligence for space, crypto, travel, law, wellness, and more.">
+<!-- favicons-->
+<link rel="icon" type="image/png" href="assets/img/favicons/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/svg+xml" href="assets/img/favicons/favicon.svg" />
+<link rel="shortcut icon" href="assets/img/favicons/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicons/apple-touch-icon.png" />
+<meta name="apple-mobile-web-app-title" content="clow studio" />
+<link rel="manifest" href="assets/img/favicons/site.webmanifest" />
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0a0f;
+  --bg2:#12121a;
+  --bg3:#1a1a2e;
+  --text:#e8e8f0;
+  --text2:#8888aa;
+  --accent:#6c5ce7;
+  --accent2:#00cec9;
+  --accent3:#fd79a8;
+  --grad:linear-gradient(135deg,#6c5ce7,#00cec9);
+  --grad2:linear-gradient(135deg,#fd79a8,#6c5ce7);
+  --radius:12px;
+  --shadow:0 4px 24px rgba(108,92,231,0.15);
+  --green:#00e676;
+  --red:#ff5252;
+  --amber:#ffab00;
+  --blue:#448aff;
+  --purple:#7c4dff;
+  --cyan:#00e5ff;
+  --pink:#ff4081;
+  --orange:#ff6d00;
+}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+a{color:var(--accent2);text-decoration:none}
+a:hover{text-decoration:underline}
+.container{max-width:1200px;margin:0 auto;padding:0 24px}
+
+/* Nav Bar Architecture */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(10,10,15,0.9);backdrop-filter:blur(12px);border-bottom:1px solid rgba(108,92,231,0.1);padding:16px 24px}
+nav .container{display:flex;align-items:center;justify-content:space-between}
+nav .logo-area{display:flex;align-items:center;gap:12px;cursor:pointer}
+nav .logo-img{height:32px;border-radius:6px;border:1px solid rgba(108,92,231,0.2)}
+nav .logo-text{font-size:1.25rem;font-weight:700;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+nav .logo-text span{font-weight:400;color:var(--text2);-webkit-text-fill-color:var(--text2)}
+nav .nav-links{display:flex;gap:24px;align-items:center}
+nav .nav-links a{color:var(--text2);font-size:0.875rem;transition:color 0.2s;cursor:pointer;font-weight:500}
+nav .nav-links a:hover, nav .nav-links a.active{color:var(--text);border-bottom:2px solid var(--accent2);padding-bottom:2px}
+nav .cta-btn{background:var(--grad);color:#fff!important;padding:8px 20px;border-radius:8px;font-weight:600;font-size:0.875rem}
+.mobile-toggle{display:none;background:none;border:none;color:var(--text);font-size:1.5rem;cursor:pointer}
+
+/* Layout State Configuration */
+#public-view { display: block; }
+#engine-view, #economy-view, #support-view { display: none; padding-top: 100px; }
+
+/* Hero Wrapper */
+.hero{min-height:85vh;display:flex;align-items:center;padding:120px 0 60px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle at 30% 50%,rgba(108,92,231,0.08),transparent 50%),radial-gradient(circle at 70% 50%,rgba(0,206,201,0.06),transparent 50%);pointer-events:none}
+.hero .container{position:relative;z-index:1}
+.hero .badge{display:inline-block;background:rgba(108,92,231,0.15);color:var(--accent);padding:6px 16px;border-radius:20px;font-size:0.8rem;font-weight:600;margin-bottom:20px;text-transform:uppercase;letter-spacing:1px}
+.hero h1{font-size:3.2rem;font-weight:800;line-height:1.15;margin-bottom:20px}
+.hero h1 .highlight{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero p{font-size:1.15rem;color:var(--text2);max-width:640px;margin-bottom:36px}
+.hero .cta-group{display:flex;gap:16px;flex-wrap:wrap}
+.hero .btn-primary{background:var(--grad);color:#fff;padding:14px 32px;border-radius:10px;font-weight:600;font-size:1rem;border:none;cursor:pointer;transition:transform 0.2s;display:inline-flex;align-items:center;gap:8px}
+.hero .btn-primary:hover{transform:translateY(-2px);opacity:0.95;text-decoration:none}
+.hero .btn-secondary{background:transparent;color:var(--text);padding:14px 32px;border-radius:10px;font-size:1rem;border:1px solid rgba(108,92,231,0.3);transition:all 0.2s;display:inline-flex;align-items:center;gap:8px}
+.hero .btn-secondary:hover{background:rgba(108,92,231,0.1);border-color:var(--accent);text-decoration:none}
+.hero-stats{display:flex;gap:48px;margin-top:48px;flex-wrap:wrap}
+.hero-stats .stat{text-align:center}
+.hero-stats .stat .num{font-size:2rem;font-weight:800;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-stats .stat .label{font-size:0.8rem;color:var(--text2);text-transform:uppercase;letter-spacing:1px;margin-top:4px}
+
+/* Simulation Infrastructure Component */
+.demo-section{background:var(--bg2);border-top:1px solid rgba(108,92,231,0.1);border-bottom:1px solid rgba(108,92,231,0.1);padding:80px 0}
+.demo-container-frame{background:var(--bg);border:1px solid rgba(108,92,231,0.15);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow);overflow:hidden}
+.demo-terminal-bar{display:flex;align-items:center;gap:8px;border-bottom:1px solid rgba(108,92,231,0.08);padding-bottom:12px;margin-bottom:16px}
+.demo-terminal-dot{width:12px;height:12px;border-radius:50%}
+.demo-window-body{display:grid;grid-template-columns:320px 1fr;gap:24px;min-height:400px}
+.demo-sidebar-controls{background:var(--bg2);border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:12px}
+.demo-control-row{background:var(--bg3);border:1px solid rgba(108,92,231,0.08);border-radius:6px;padding:14px;font-size:0.85rem;cursor:pointer;transition:all 0.2s;line-height:1.4}
+.demo-control-row strong{display:block;color:#fff;margin-bottom:2px}
+.demo-control-row span{font-size:0.75rem;color:var(--text2)}
+.demo-control-row:hover, .demo-control-row.active{border-color:var(--accent2);background:rgba(108,92,231,0.05)}
+.demo-screen-canvas{background:#040408;border-radius:8px;padding:24px;font-family:'Courier New',monospace;font-size:0.85rem;position:relative;overflow-y:auto;border:1px solid rgba(255,255,255,0.03)}
+
+section{padding:100px 0}
+.section-title{font-size:2rem;font-weight:700;margin-bottom:12px;text-align:center}
+.section-subtitle{font-size:1rem;color:var(--text2);text-align:center;max-width:600px;margin:0 auto 48px}
+
+/* Feature Grid Array */
+.feature-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
+.feature-card{background:var(--bg2);border:1px solid rgba(108,92,231,0.1);border-radius:var(--radius);padding:36px 28px;transition:all 0.3s;position:relative;overflow:hidden}
+.feature-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--grad);opacity:0;transition:opacity 0.3s}
+.feature-card:hover{transform:translateY(-4px);border-color:rgba(108,92,231,0.3);box-shadow:var(--shadow)}
+.feature-card:hover::before{opacity:1}
+.feature-card .icon{font-size:2.2rem;margin-bottom:16px}
+.feature-card h3{font-size:1.2rem;margin-bottom:8px}
+.feature-card .tagline{font-size:0.85rem;color:var(--accent2);margin-bottom:12px;font-weight:600}
+.feature-card p{font-size:0.9rem;color:var(--text2);margin-bottom:16px}
+.feature-card .feature-link{font-weight:600;font-size:0.9rem;display:inline-flex;align-items:center;gap:6px}
+
+/* Bot Node Architectures */
+.bots-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.bot-card{background:var(--bg2);border:1px solid rgba(108,92,231,0.08);border-radius:10px;padding:18px 16px;transition:all 0.2s;text-align:center}
+.bot-card:hover{background:var(--bg3);transform:translateY(-2px)}
+.bot-card .emoji{font-size:1.6rem;margin-bottom:6px}
+.bot-card h4{font-size:0.85rem;margin-bottom:2px}
+.bot-card p{font-size:0.75rem;color:var(--text2)}
+.bot-card .bot-link{font-size:0.7rem;color:var(--accent2);word-break:break-all}
+
+/* Token Economics Display Nodes */
+.economy-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
+.economy-card{background:var(--bg2);border:1px solid rgba(108,92,231,0.1);border-radius:var(--radius);padding:28px 24px;text-align:center}
+.economy-card .num{font-size:2.5rem;font-weight:800;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.economy-card h4{font-size:1rem;margin:8px 0 4px}
+.economy-card p{font-size:0.85rem;color:var(--text2)}
+
+/* Pricing Mechanics */
+.pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px}
+.pricing-card{background:var(--bg2);border:1px solid rgba(108,92,231,0.1);border-radius:var(--radius);padding:32px 24px;text-align:center;transition:all 0.3s;position:relative}
+.pricing-card.featured{border-color:var(--accent);box-shadow:0 0 30px rgba(108,92,231,0.1)}
+.pricing-card.featured::before{content:'BEST VALUE';position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--grad);color:#fff;padding:4px 16px;border-radius:20px;font-size:0.7rem;font-weight:700;letter-spacing:1px}
+.pricing-card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+.pricing-card h3{font-size:1.1rem;margin-bottom:8px}
+.pricing-card .price{font-size:2.5rem;font-weight:800;margin:16px 0;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.pricing-card .price span{font-size:1rem;color:var(--text2);font-weight:400}
+.pricing-card ul{list-style:none;padding:0;margin:20px 0;text-align:left}
+.pricing-card ul li{padding:8px 0;font-size:0.85rem;color:var(--text2);display:flex;align-items:center;gap:8px}
+.pricing-card ul li::before{content:'✓ ';color:var(--accent2);font-weight:700}
+.pricing-card .btn-pricing{display:block;width:100%;padding:12px;border-radius:8px;font-weight:600;font-size:0.9rem;border:1px solid rgba(108,92,231,0.3);background:transparent;color:var(--text);cursor:pointer;transition:all 0.2s;margin-top:16px;text-align:center}
+.pricing-card .btn-pricing:hover{background:rgba(108,92,231,0.15);border-color:var(--accent);text-decoration:none}
+.pricing-card.featured .btn-pricing{background:var(--grad);color:#fff;border:none}
+.pricing-card.featured .btn-pricing:hover{opacity:0.9}
+
+/* Accordion Core Style Architectures */
+.accordion-wrapper { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
+.accordion-node { background: var(--bg2); border: 1px solid rgba(108,92,231,0.1); border-radius: 8px; overflow: hidden; transition: border-color 0.2s; }
+.accordion-trigger { width: 100%; background: none; border: none; padding: 18px 24px; text-align: left; color: #fff; font-weight: 600; font-size: 1rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; outline: none; }
+.accordion-trigger:hover { background: rgba(108,92,231,0.03); }
+.accordion-icon { font-size: 0.8rem; color: var(--text2); transition: transform 0.2s; }
+.accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.2s ease-out; background: rgba(0,0,0,0.1); }
+.accordion-inner-panel { padding: 0 24px 20px; font-size: 0.9rem; color: var(--text2); line-height: 1.6; }
+.accordion-node.active { border-color: rgba(108,92,231,0.3); }
+.accordion-node.active .accordion-icon { transform: rotate(180deg); color: var(--accent2); }
+
+/* Client Validation Systems */
+.testimonials-section{padding:60px 0;background:var(--bg2)}
+.testimonials-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+.testimonial{background:var(--bg3);border:1px solid rgba(108,92,231,0.08);border-radius:var(--radius);padding:24px;position:relative}
+.testimonial p{font-size:0.95rem;color:var(--text);font-style:italic}
+.testimonial cite{display:block;margin-top:12px;font-size:0.8rem;color:var(--accent2);font-weight:600}
+
+/* Secure Non-Liability Target Capture */
+.capture-section{padding:80px 0}
+.capture-card{background:linear-gradient(135deg,#12121a 0%,#1a1a2e 100%);border:1px solid rgba(108,92,231,0.15);border-radius:var(--radius);padding:40px;max-width:700px;margin:0 auto;text-align:center}
+.capture-icon{font-size:3rem;margin-bottom:12px}
+.capture-title{font-size:1.8rem;font-weight:700;margin-bottom:12px}
+.capture-desc{font-size:1rem;color:var(--text2);margin-bottom:24px}
+.btn-mailto{background:var(--grad);color:#fff;padding:16px 36px;border-radius:8px;font-weight:700;display:inline-flex;align-items:center;gap:10px;transition:transform 0.2s}
+.btn-mailto:hover{transform:translateY(-2px);text-decoration:none;opacity:0.95}
+.cta-section{text-align:center;background:var(--bg2);border-top:1px solid rgba(108,92,231,0.1);border-bottom:1px solid rgba(108,92,231,0.1)}
+.cta-section h2{font-size:2.2rem;margin-bottom:16px}
+.cta-section p{color:var(--text2);max-width:500px;margin:0 auto 32px;font-size:1.05rem}
+.cta-section .btn-primary{font-size:1.1rem;padding:16px 40px}
+
+/* ============================================================== */
+/* 🧠 ENGINE CENTER ADVISORY DOCS HUB SPECIFICATIONS              */
+/* ============================================================== */
+.comparison-table{width:100%;border-collapse:collapse;margin-bottom:2rem;background:var(--bg2);border:1px solid rgba(108,92,231,0.1);border-radius:var(--radius);overflow:hidden}
+.comparison-table th{background:var(--bg3);color:#8b8bff;font-weight:600;font-size:.9rem;padding:1rem 1.25rem;text-align:left;border-bottom:1px solid rgba(108,92,231,0.2)}
+.comparison-table td{padding:1rem 1.25rem;font-size:.85rem;border-bottom:1px solid rgba(108,92,231,0.1);vertical-align:top}
+.comparison-table .without-rrg{color:#f87171;opacity:.85}
+.comparison-table .with-rrg{color:#4ade80}
+.verdict-tag{display:inline-block;font-weight:700;font-size:.8rem;padding:.15rem .5rem;border-radius:4px;margin-bottom:.25rem}
+.verdict-tag.buy{background:#14532d;color:#4ade80}
+.verdict-tag.crit{background:#7f1d1d;color:#fca5a5}
+.scenario-selector-box{background:var(--bg2);border:1px solid rgba(108,92,231,0.1);border-radius:var(--radius);padding:1.5rem;margin-bottom:2rem}
+.scenario-result-well{background:var(--bg3);border:1px solid rgba(108,92,231,0.08);border-radius:8px;padding:1.25rem;min-height:80px}
+
+/* ============================================================== */
+/* ☕ INJECTED UPGRADE & CAPITAL CHANNELS ROUTING INTERFACE       */
+/* ============================================================== */
+.donate-panel{background:var(--bg2);border:1px solid rgba(108,92,231,0.1);border-radius:var(--radius);padding:2.5rem;margin:2rem 0;text-align:center}
+.bmc-btn{display:inline-flex;align-items:center;gap:0.5rem;background:#FFDD00;color:#000;padding:0.8rem 2rem;border-radius:8px;font-weight:700;font-size:1.1rem;text-decoration:none;margin:1rem 0;transition:transform 0.2s}
+.bmc-btn:hover{transform:scale(1.03);text-decoration:none}
+.crypto-routing-hub{background:var(--bg2);border:1px solid rgba(108,92,231,0.1);border-radius:var(--radius);padding:24px;margin-bottom:32px}
+.crypto-primary-route{background:var(--bg3);border:1px solid rgba(108,92,231,0.2);border-radius:8px;padding:16px;display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.crypto-addr-row{background:#0a0a0f;border:1px solid rgba(108,92,231,0.1);border-radius:8px;padding:0.8rem 1rem;margin:0.5rem 0;font-family:'Courier New',monospace;font-size:0.85rem;word-break:break-all;display:flex;align-items:center;justify-content:space-between;gap:0.5rem}
+.crypto-addr-row .chain{font-weight:600;color:var(--amber);min-width:40px}
+.crypto-addr-row .addr{flex:1;color:var(--text2);text-align:left}
+.crypto-addr-row .copy-btn{background:var(--bg3);border:1px solid rgba(108,92,231,0.2);color:var(--text);padding:0.3rem 0.6rem;border-radius:4px;cursor:pointer;font-size:0.75rem}
+.crypto-addr-row .copy-btn:hover {background:var(--grad);color:#fff}
+.embed-terminal-container { background: #07070d; border: 1px solid rgba(108,92,231,0.2); border-radius: var(--radius); overflow: hidden; margin-top: 20px; box-shadow: var(--shadow); }
+.embed-terminal-header { background: #0f0f1a; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(108,92,231,0.1); }
+.embed-terminal-dots { display: flex; gap: 6px; }
+.embed-terminal-dot { width: 10px; height: 10px; border-radius: 50%; }
+.embed-terminal-body { padding: 20px; position: relative; }
+.embed-terminal-snippet { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.8rem; color: var(--accent2); background: none; border: none; width: 100%; resize: none; outline: none; line-height: 1.5; white-space: pre-wrap; word-break: break-all; }
+.embed-terminal-copy-trigger { background: var(--bg3); border: 1px solid rgba(108,92,231,0.2); color: var(--text); padding: 6px 14px; border-radius: 6px; font-size: 0.75rem; cursor: pointer; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; transition: all 0.2s; }
+.embed-terminal-copy-trigger:hover { background: var(--grad); color: #fff; border-color: transparent; }
+
+/* ============================================================== */
+/* 🔐 MISSION CONTROL MISSION ANALYTICS INFRASTRUCTURE OVERRIDES  */
+/* ============================================================== */
+#secure-admin-portal{display:none;background:var(--bg);padding:100px 0 60px;min-height:100vh}
+.admin-header-cluster{background:linear-gradient(135deg,#0a0a1f 0%,#1a0a2e 50%,#0a1a2e 100%);border:1px solid rgba(108,92,231,0.2);border-radius:var(--radius);padding:24px;margin-bottom:32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.admin-badge-cluster{display:flex;gap:8px}
+.badge-status{font-size:11px;font-weight:700;padding:4px 10px;border-radius:4px}
+.badge-green{background:rgba(0,230,118,0.15);color:var(--green)}
+.badge-blue{background:rgba(68,138,255,0.15);color:var(--blue)}
+.kpi-grid-dashboard{display:grid;grid-template-columns:repeat(auto-fit, minmax(180px, 1fr));gap:16px;margin-bottom:32px}
+.kpi-card-dashboard{background:var(--bg2);border:1px solid rgba(108,92,231,0.1);border-radius:10px;padding:20px;position:relative;overflow:hidden}
+.kpi-card-dashboard::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.kpi-card-dashboard.green::before{background:var(--green)}
+.kpi-card-dashboard.blue::before{background:var(--blue)}
+.kpi-card-dashboard.purple::before{background:var(--purple)}
+.kpi-card-dashboard.cyan::before{background:var(--cyan)}
+.kpi-label-dashboard{font-size:11px;color:var(--text2);text-transform:uppercase;letter-spacing:0.5px}
+.kpi-val-dashboard{font-size:2rem;font-weight:700;margin:6px 0}
+.kpi-sub-dashboard{font-size:12px;color:var(--text2)}
+.split-dashboard-layout{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:32px}
+.admin-card-box{background:var(--bg2);border:1px solid rgba(108,92,231,0.1);border-radius:var(--radius);padding:24px}
+.admin-card-box h3{font-size:1.2rem;margin-bottom:16px;color:var(--text);border-bottom:1px solid rgba(108,92,231,0.1);padding-bottom:8px}
+.chart-container-box{position:relative;width:100%;height:240px}
+.funnel-grid-flex{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;background:var(--bg2);border:1px solid rgba(108,92,231,0.1);padding:20px;border-radius:var(--radius);margin-bottom:32px}
+.funnel-step-box{flex:1;min-width:140px;background:var(--bg3);border:1px solid rgba(108,92,231,0.08);padding:16px;border-radius:8px;text-align:center}
+.funnel-step-box h4{font-size:10px;color:var(--text2);letter-spacing:0.5px;margin-bottom:4px}
+.funnel-step-box .val{font-size:1.5rem;font-weight:700;color:#fff}
+.funnel-step-box .rate{font-size:11px;color:var(--accent2)}
+.funnel-arrow-box{color:var(--text2);font-weight:700}
+.checklist-box{list-style:none}
+.checklist-box li{padding:12px;background:var(--bg3);border:1px solid rgba(108,92,231,0.1);border-radius:8px;display:flex;align-items:center;gap:12px;cursor:pointer;font-size:0.875rem;transition:all 0.2s}
+.checklist-box li.done{background:rgba(0,230,118,0.05);border-color:rgba(0,230,118,0.3)}
+.checklist-box li.done .check-icon{color:var(--green)}
+.checklist-box li .check-icon{font-weight:700;color:var(--text2)}
+.checklist-box li .label-text{flex:1}
+.stream-card-box{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.sub-stream-card{background:var(--bg3);padding:14px;border-radius:8px;border:1px solid rgba(108,92,231,0.05)}
+.sub-stream-card h4{font-size:0.9rem;margin-bottom:8px;display:flex;justify-content:space-between}
+.sub-stream-card .row-flex{display:flex;justify-content:space-between;font-size:0.8rem;color:var(--text2);margin-top:4px}
+.sub-stream-card .value-highlight{font-weight:600;color:#fff}
+.editable-metric{cursor:pointer;border-bottom:1px dashed var(--accent2);padding-bottom:1px}
+.health-grid-dashboard{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin-bottom:32px}
+.health-item-dashboard{background:var(--bg2);border:1px solid rgba(108,92,231,0.08);border-radius:8px;padding:14px;text-align:center;font-size:0.85rem}
+.health-item-dashboard div {font-weight:700;margin-top:4px}
+.bots-status-dashboard{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.bot-status-node{background:var(--bg2);border:1px solid rgba(108,92,231,0.1);border-radius:var(--radius);padding:16px}
+.bot-node-header{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.bot-node-avatar{width:36px;height:36px;border-radius:50%;background:rgba(108,92,231,0.1);border:1px solid var(--accent);display:flex;align-items:center;justify-content:center;font-size:1.2rem}
+.bot-node-info h5{font-size:0.875rem;color:#fff}
+.bot-node-info span {font-size:0.75rem;color:var(--text2)}
+.bot-node-metrics {display:grid;grid-template-columns:1fr 1fr;gap:8px;text-align:center}
+.bot-node-stat{background:var(--bg3);padding:6px;border-radius:6px}
+.bot-node-stat .val{font-size:1rem;font-weight:700;color:#fff}
+.bot-node-stat .lbl{font-size:10px;color:var(--text2)}
+.toast-msg{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);background:var(--bg3);border:1px solid rgba(108,92,231,0.3);border-radius:8px;padding:.75rem 1.5rem;color:var(--green);font-size:.9rem;opacity:0;transition:opacity .3s;pointer-events:none;z-index:2000}
+.toast-msg.show{opacity:1}
+
+/* ============================================================== */
+/* 🦞 UI/UX COMPONENT UPGRADES: FOOTER LINKS & SOCIAL ASSETS       */
+/* ============================================================== */
+.site-footer-premium { background: var(--bg2); padding: 80px 0 40px; border-top: 1px solid rgba(108,92,231,0.1); color: var(--text); }
+.site-footer-premium .grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 48px; margin-bottom: 40px; }
+.footer-desc { font-size: 0.9rem; color: var(--text2); line-height: 1.6; margin-bottom: 20px; max-width: 460px; }
+.footer-social { display: flex; gap: 12px; margin-top: 16px; }
+.social-btn { background: var(--bg3); color: var(--text2); border: 1px solid rgba(108,92,231,0.15); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; transition: all 0.2s ease; }
+.social-btn:hover { background: var(--grad); color: #fff; border-color: transparent; transform: translateY(-2px); box-shadow: var(--shadow); }
+.footer-payments { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
+.payment-link { display: inline-flex; align-items: center; background: var(--bg3); color: var(--text); border: 1px solid rgba(108,92,231,0.15); padding: 8px 16px; border-radius: 8px; font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: all 0.2s ease; }
+.payment-link:hover { border-color: var(--accent2); background: rgba(0,206,201,0.05); color: var(--accent2); }
+
+@media(max-width:768px){
+  .site-footer-premium .grid { grid-template-columns: 1fr; gap: 32px; }
+  .pricing-grid,.feature-grid,.split-dashboard-layout,.demo-window-body{grid-template-columns:1fr}
+  .economy-grid{grid-template-columns:1fr 1fr}
+  nav .nav-links{display:none}
+  .mobile-toggle{display:block}
+  nav .nav-links.open{display:flex;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:var(--bg);padding:16px 24px;border-bottom:1px solid rgba(108,92,231,0.1);gap:12px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+<div class="container">
+<div class="logo-area" onclick="routeView('public')">
+<img src="assets/img/clowlogo_377x377.jpg" alt="clow.studio 🦞" class="logo-img">
+<div class="logo-text">clow<span>studio</span> </div>
+</div>
+<div class="nav-links" id="navLinks">
+<a id="link-public" onclick="routeView('public')" class="active">Products</a>
+<a id="link-engine" onclick="routeView('engine')">Engine</a>
+<a id="link-economy" onclick="routeView('economy')">Agent Economy</a>
+<a id="link-support" onclick="routeView('support')">Support</a>
+<a href="case_study.html" id="link-case-study">Case Study</a>
+<a href="#pricing" onclick="routeView('public')">Pricing</a>
+<a href="#capture" onclick="routeView('public')">Contact</a>
+<a href="https://t.me/deeptechx_bot" class="cta-btn">Get Started</a>
+</div>
+<button class="mobile-toggle" onclick="document.getElementById('navLinks').classList.toggle('open')">☰</button>
+</div>
+</nav>
+
+<div id="public-view">
+  <section class="hero">
+  <div class="container">
+  <div class="badge">🚀 Now Live — 9 AI Agents · v4.6.0</div>
+  <h1>The <span class="highlight">AI Ecosystem</span> for the New Economy</h1>
+  <p>9 specialized bots. One agent economy. Cross-platform intelligence. Built for space founders, crypto traders, travelers, and deep tech operators.</p>
+  <div class="cta-group">
+  <a href="https://t.me/deeptechx_bot" class="btn-primary">🦞 Start with Complex Systems Hub</a>
+  <a onclick="routeView('engine')" class="btn-secondary">→ Strategy Engine Hub</a>
+  </div>
+  <div class="hero-stats">
+  <div class="stat"><div class="num">9</div><div class="label">AI Bots</div></div>
+  <div class="stat"><div class="num">8</div><div class="label">Web Apps</div></div>
+  <div class="stat"><div class="num">€0</div><div class="label">Start Free</div></div>
+  <div class="stat"><div class="num">24/7</div><div class="label">Always On</div></div>
+  </div>
+  </div>
+  </section>
+
+  <section id="products" style="padding-top:40px;">
+  <div class="container">
+  <h2 class="section-title">Flagship Products</h2>
+  <p class="section-subtitle">Four purpose-built AI products powering the ecosystem.</p>
+  <div class="feature-grid">
+  <div class="feature-card">
+  <div class="icon">🦞</div>
+  <h3>Clow.studio Ecosystem</h3>
+  <div class="tagline">The brain of the operation</div>
+  <p>9 Telegram bots + agent economy + cross-platform intelligence. Complex systems analysis, travel AI, crypto security, legal, wellness, jobs, investing, productization, global monitoring — all connected by a shared CLOW token economy.</p>
+  <a href="https://t.me/deeptechx_bot" class="feature-link">Enter the ecosystem →</a>
+  </div>
+  <div class="feature-card">
+  <div class="icon">🗺️</div>
+  <h3>WanderSync</h3>
+  <div class="tagline">AI travel intelligence</div>
+  <p>Multi-modal trip planning across flights, trains, and buses. Destination intelligence with AQI, UV, weather windows, and crowd analytics. Risk heatmaps covering 40+ regions. B2B travel operations with group management and incident response.</p>
+  <a href="https://t.me/wandersync_bot" class="feature-link">Plan your next trip →</a>
+  </div>
+  <div class="feature-card">
+  <div class="icon">🛡️</div>
+  <h3>QDefense.pro</h3>
+  <div class="tagline">Quantum Moat Analyzer</div>
+  <p>The first commercial quantum readiness assessment platform. Audit addresses, tokens, protocols, signature schemes, and entire portfolios against Shor's algorithm and Grover's search. Free address checks. Premium for full protocol audits.</p>
+  <a href="https://t.me/chaincypher_bot" class="feature-link">Audit your quantum risk →</a>
+  </div>
+  <div class="feature-card">
+  <div class="icon">🎯</div>
+  <h3>ProductizeYou</h3>
+  <div class="tagline">Turn expertise into revenue</div>
+  <p>AI-powered productization engine. 4 profiles (founder, consultant, innovation manager, product manager), 7-agent CoT pipeline, Go/No-Go evaluation. Free to use. From expertise audit to launch in 30 days.</p>
+  <a href="https://t.me/productization_bot" class="feature-link">Start productizing →</a>
+  </div>
+  </div>
+  </div>
+  </section>
+
+  <section id="bots" style="background:var(--bg2)">
+  <div class="container">
+  <h2 class="section-title">Bot Ecosystem</h2>
+  <p class="section-subtitle">9 specialized AI agents on Telegram — one ecosystem, one economy, unlimited possibilities.</p>
+  <div class="bots-grid">
+  <div class="bot-card"><div class="emoji">🦞</div><h4>Complex Systems</h4><p>Economy · Geopolitics · Strategy</p><a class="bot-link" href="https://t.me/deeptechx_bot">@deeptechx_bot</a></div>
+  <div class="bot-card"><div class="emoji">🗺️</div><h4>WanderSync</h4><p>Travel AI · Risk · B2B</p><a class="bot-link" href="https://t.me/wandersync_bot">@wandersync_bot</a></div>
+  <div class="bot-card"><div class="emoji">🧿</div><h4>ChainShield</h4><p>Crypto Security · Quantum</p><a class="bot-link" href="https://t.me/chaincypher_bot">@chaincypher_bot</a></div>
+  <div class="bot-card"><div class="emoji">💼</div><h4>JobPulse</h4><p>Jobs · Career · Market Intel</p><a class="bot-link" href="https://t.me/gigclow_bot">@gigclow_bot</a></div>
+  <div class="bot-card"><div class="emoji">🛠</div><h4>ProductizeYou</h4><p>Audit · Package · Launch</p><a class="bot-link" href="https://t.me/productization_bot">@productization_bot</a></div>
+  <div class="bot-card"><div class="emoji">📈</div><h4>Claw Invest</h4><p>Research · Portfolio · Risk</p><a class="bot-link" href="https://t.me/investclawd_bot">@investclawd_bot</a></div>
+  <div class="bot-card"><div class="emoji">⚖️</div><h4>Legal Agent</h4><p>Contracts · Compliance · Venture</p><a class="bot-link" href="https://t.me/legalclow_bot">@legalclow_bot</a></div>
+  <div class="bot-card"><div class="emoji">🌿</div><h4>Elara Wellness</h4><p>Health · Movement · Mindfulness</p><a class="bot-link" href="https://t.me/elarawellness_bot">@elarawellness_bot</a></div>
+  <div class="bot-card"><div class="emoji">🌍</div><h4>WorldMonitor</h4><p>Global Intel · 150+ Sources</p><a class="bot-link" href="https://t.me/wmagentic_bot">@wmagentic_bot</a></div>
+  </div>
+  </div>
+  </section>
+  
+  <!-- Demo-->
+  <section class="demo-section">
+    <div class="container">
+      <h2 class="section-title">Ecosystem Simulation Matrix</h2>
+      <p class="section-subtitle">Interact with our multi-agent telemetry loops. Each option tests real-time processing rules across geospatial and technical runtimes.</p>
+      <div class="demo-container-frame">
+        <div class="demo-terminal-bar">
+          <div class="demo-terminal-dot" style="background:var(--red)"></div>
+          <div class="demo-terminal-dot" style="background:var(--amber)"></div>
+          <div class="demo-terminal-dot" style="background:var(--green)"></div>
+          <span style="font-family:monospace; font-size:0.75rem; color:var(--text2); margin-left:8px;">picoclaw_agent_mesh_sandbox.sh</span>
+        </div>
+        <div class="demo-window-body">
+          <div class="demo-sidebar-controls">
+            <div class="demo-control-row active" onclick="runDemoPipeline('stac', this)">
+              <strong>🛰️ STAC Meta Discovery</strong>
+              <span>Queries public satellite repositories for spatial imagery intersections.</span>
+            </div>
+            <div class="demo-control-row" onclick="runDemoPipeline('ndvi', this)">
+              <strong>🌲 Canopy Change Detection</strong>
+              <span>Calculates relative vegetation variances using algorithmic red spectra maps.</span>
+            </div>
+            <div class="demo-control-row" onclick="runDemoPipeline('sre', this)">
+              <strong>🩺 Infrastructure Triage</strong>
+              <span>Monitors system error parameters to lock defensive circuit breakers.</span>
+            </div>
+            <div class="demo-control-row" onclick="runDemoPipeline('bi', this)">
+              <strong>📊 Natural Language GeoBI</strong>
+              <span>Transforms text prompts into structural risk weights.</span>
+            </div>
+            <div class="demo-control-row" onclick="runDemoPipeline('risk', this)">
+              <strong>🛡️ Supply Chain Risk</strong>
+              <span>Checks logistics paths for resource single-source dependencies.</span>
+            </div>
+          </div>
+          <div class="demo-screen-canvas" id="demoTerminalOutput">
+&gt; Initializing local MCP Emulation Server Hooks...
+&gt; Bending space arrays to Planet Computer indices...
+&gt; System online. Select an execution node on the left panel to trigger the agent cascade.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="pricing" style="background:var(--bg2)">
+  <div class="container">
+  <h2 class="section-title">Simple Pricing</h2>
+  <p class="section-subtitle">Start free. Upgrade when you outgrow it. No lock-in.</p>
+  <div class="pricing-grid">
+  <div class="pricing-card">
+  <h3>Free</h3>
+  <div class="price">€0</div>
+  <ul>
+  <li>10 msgs/day per bot</li>
+  <li>1 agent in economy</li>
+  <li>Basic commands</li>
+  <li>QMA address check</li>
+  </ul>
+  <a href="https://t.me/deeptechx_bot" target="_blank" class="btn-pricing">Start Free</a>
+  </div>
+  <div class="pricing-card featured">
+  <h3>Pro</h3>
+  <div class="price">€9.99 <span>/mo</span></div>
+  <ul>
+  <li>Unlimited messages</li>
+  <li>5 agents in economy</li>
+  <li>QMA protocol audit</li>
+  <li>Priority support</li>
+  <li>All 9 bots unlimited</li>
+  </ul>
+  <a href="https://buy.stripe.com/6oU14neX647kcaI29Z0oM00" target="_blank" class="btn-pricing">Go Pro</a>
+  </div>
+  <div class="pricing-card">
+  <h3>Whale</h3>
+  <div class="price">€49 <span>/mo</span></div>
+  <ul>
+  <li>Unlimited everything</li>
+  <li>25 agents in economy</li>
+  <li>API access</li>
+  <li>Custom strategies</li>
+  <li>Governance weighting</li>
+  </ul>
+  <a href="https://buy.stripe.com/6oU14neX647kcaI29Z0oM00" target="_blank" class="btn-pricing">Go Whale</a>
+  </div>
+  </div>
+  </div>
+  </section>
+
+  <section class="faq-section">
+    <div class="container">
+      <h2 class="section-title">Quick Answers</h2>
+      <div class="accordion-wrapper">
+        <div class="accordion-node">
+          <button class="accordion-trigger" onclick="toggleAccordion(this)">
+            <span>Why €9.99/mo when ChatGPT Plus is €20?</span>
+            <span class="accordion-icon">▼</span>
+          </button>
+          <div class="accordion-content">
+            <div class="accordion-inner-panel">
+              Clow is not a general-purpose chat wrapper. Your subscription gives you unlimited access to 9 domain-specific agents natively wired with complex reasoning workflows (including space tech, crypto red-teaming, and global risk indices).
+            </div>
+          </div>
+        </div>
+        <div class="accordion-node">
+          <button class="accordion-trigger" onclick="toggleAccordion(this)">
+            <span>What exactly is the integrated EPR-RRG Engine?</span>
+            <span class="accordion-icon">▼</span>
+          </button>
+          <div class="accordion-content">
+            <div class="accordion-inner-panel">
+              It stands for Equitable Prudent Resilience + Reflexive Resilient Governance. It filters inputs through realpolitik, systems theory, and game structures to emit immediate, verdict-first decisions.
+            </div>
+          </div>
+        </div>
+        <div class="accordion-node">
+          <button class="accordion-trigger" onclick="toggleAccordion(this)">
+            <span>How does the CAS Engine function inside the cluster?</span>
+            <span class="accordion-icon">▼</span>
+          </button>
+          <div class="accordion-content">
+            <div class="accordion-inner-panel">
+              The Complex Adaptive Systems (CAS) engine spins up an independent multi-agent reasoning ensemble. This structure dynamically models multi-actor spaces using game-theoretic payoffs, phase transitions, and statistical landscapes.
+            </div>
+          </div>
+        </div>
+        <div class="accordion-node">
+          <button class="accordion-trigger" onclick="toggleAccordion(this)">
+            <span>What defines a "Complex Adaptive System" (CAS) in this environment?</span>
+            <span class="accordion-icon">▼</span>
+          </button>
+          <div class="accordion-content">
+            <div class="accordion-inner-panel">
+              A system is considered complex and adaptive when it consists of multiple independent agents that interact, learn from environmental feedback, and change their behavioral strategies over time. This results in non-linear dynamics, emergence, and unpredictable critical tipping points that classical linear models completely fail to capture.
+            </div>
+          </div>
+        </div>
+        <div class="accordion-node">
+          <button class="accordion-trigger" onclick="toggleAccordion(this)">
+            <span>How do agents maintain equilibrium within the CAS framework?</span>
+            <span class="accordion-icon">▼</span>
+          </button>
+          <div class="accordion-content">
+            <div class="accordion-inner-panel">
+              Agents approach a dynamic state of balance through evolutionary game dynamics, utilizing mathematical frameworks such as the replicator equation. By constantly updating strategic choices according to historical performance metrics, the multi-agent architecture naturally self-organizes without requiring centralized controller logic.
+            </div>
+          </div>
+        </div>
+        <div class="accordion-node">
+          <button class="accordion-trigger" onclick="toggleAccordion(this)">
+            <span>Can I really productize my business model in 7 days?</span>
+            <span class="accordion-icon">▼</span>
+          </button>
+          <div class="accordion-content">
+            <div class="accordion-inner-panel">
+              Yes. The engine systematically splits your consulting knowledge or codebase into functional structural canvases, user stories, and acceptance criteria to ship without over-engineering loops.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="testimonials-section">
+    <div class="container">
+      <h2 class="section-title">What Early Operators Say</h2>
+      <div class="testimonials-grid">
+        <blockquote class="testimonial">
+          <p>"The ChainShield bot saved me from a critical rug pull. Checked a contract I was about to allocate funds into—turned out to be a structural honeypot."</p>
+          <cite>— Crypto Trader, Discord</cite>
+        </blockquote>
+        <blockquote class="testimonial">
+          <p>"Productize_bot helped me construct the exact user stories and BMC criteria for my consultancy in a single evening. Launched the bot deployment loop right after."</p>
+          <cite>— Solo Founder, Kenya</cite>
+        </blockquote>
+        <blockquote class="testimonial">
+          <p>"I track global trend indicators via WorldMonitor and deeptechx. The risk assessment layers are completely unparalleled for macro research."</p>
+          <cite>— Venture Architect, Athens</cite>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <section id="capture" class="capture-section">
+    <div class="container">
+      <div class="capture-card">
+        <div class="capture-icon">📬</div>
+        <h2 class="capture-title">Get the 7-Day Productize Loop</h2>
+        <p class="capture-desc">The complete strategic framework playbook used to scale 21 products within 6 weeks—including core prompt matrices for the BMC mapping tools.</p>
+        <a href="mailto:des@desiredsolutions.me?subject=Request%207-Day%20Productize%20Loop%20Playbook&body=Hello%20Clow%20Team%2C%20please%20send%20the%207-Day%20Productize%20Loop%20playbook%20to%20this%20email%20address.%20Thank%20you." class="btn-mailto">
+          <span>📧 Request Playbook Loop via Email</span>
+        </a>
+        <p style="font-size:0.75rem; color:var(--text2); margin-top:12px;">Zero form storage trackers · Fully GDPR compliant local mail dispatch route.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+  <div class="container">
+  <h2>Ready to Join the Ecosystem?</h2>
+  <p>Start with any bot. Explore the economy. Upgrade when you're ready. No friction, no sales pitch.</p>
+  <a href="https://t.me/deeptechx_bot" class="btn-primary">🦞 Start with @deeptechx_bot</a>
+  </div>
+  </section>
+</div>
+
+<div id="engine-view">
+  <div class="container">
+    <div class="onboarding-hero">
+      <h1>🧠 Core Analytical Engines</h1>
+      <p style="color:var(--text2); margin-top:6px;">Equitable Prudent Resilience + Reflexive Resilient Governance + Complex Adaptive Systems</p>
+    </div>
+
+    <div class="scenario-selector-box" style="margin-bottom:32px;">
+      <h2 style="color:#00cec9; margin-bottom:12px;">📊 Generalized CAS Engine Framework</h2>
+      <p style="font-size:0.9rem; color:var(--text); margin-bottom:16px;">
+        PicoClaw micro-engines simulate decentralized multi-actor competitive spaces by instantiating independent analysis nodes across specialized roles:
+      </p>
+      <div class="feature-grid" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:12px;">
+        <div style="background:var(--bg3); padding:16px; border-radius:8px;">
+          <strong style="color:var(--accent2)">1. CAS Theorist</strong>
+          <p style="font-size:0.8rem; color:var(--text2); margin-top:4px;">Maps nonlinear feedback rules, emergent boundaries, and systemic equilibrium conditions.</p>
+        </div>
+        <div style="background:var(--bg3); padding:16px; border-radius:8px;">
+          <strong style="color:var(--accent2)">2. Game Theorist</strong>
+          <p style="font-size:0.8rem; color:var(--text2); margin-top:4px;">Models dynamic Bayesian payoffs, evolutionary replicator loops, and Nash states.</p>
+        </div>
+        <div style="background:var(--bg3); padding:16px; border-radius:8px;">
+          <strong style="color:var(--accent2)">3. Physicist</strong>
+          <p style="font-size:0.8rem; color:var(--text2); margin-top:4px;">Visualizes phase transition thresholds, potential energy basins, and attractor networks.</p>
+        </div>
+      </div>
+      <div style="margin-top:20px; background:#040408; padding:16px; border-radius:8px; font-family:monospace; font-size:0.8rem; color:var(--green)">
+        <span>// Evolutionary Replicator Tracking Equation</span><br>
+        $$\dot{x}_i = x_i(\pi_i(s,t) - \bar{\pi})$$
+      </div>
+    </div>
+
+    <table class="comparison-table">
+      <thead>
+        <tr><th>Tactical Vector</th><th class="without-rrg">Without Engine Context</th><th class="with-rrg">Enriched Engine Output</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Lithium Allocation</strong></td>
+          <td class="without-rrg">"Supply metrics concentrate heavily inside South American regional nodes."</td>
+          <td class="with-rrg"><span class="verdict-tag buy">BUY WITH HEDGES</span><br>Resource Dependency + Power Equilibrium constraints verified. Secure recycling producers.</td>
+        </tr>
+        <tr>
+          <td><strong>Geopolitical Friction</strong></td>
+          <td class="without-rrg">"Technological decoupling results in variable macro supply levels."</td>
+          <td class="with-rrg"><span class="verdict-tag crit">CRITICAL (22/100)</span><br>Unrestricted Warfare model alerts chip export limits and rare earth supply cascades.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3 style="margin-bottom:12px; color:#fff;">Live Environment Strategy Sandbox</h3>
+    <div class="scenario-selector-box">
+      <select class="native-dropdown" id="onboardingSel">
+        <option value="">— Select System Scenario Vector —</option>
+        <option value="inflation">Understand Macro Capital Inflation</option>
+        <option value="travel">Cross-Border Safety & Stability Analysis</option>
+        <option value="crypto">DeFi Tokenomics Structural Evaluation</option>
+        <option value="geopolitical">Geopolitical Escalation Risk Tracking</option>
+      </select>
+      <div class="scenario-result-well" id="onboardingResult">
+        <span style="color:#555; font-style:italic; font-size:0.9rem;">Select a trajectory path profile above to run simulation models.</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="economy-view">
+  <div class="container">
+    <div class="onboarding-hero">
+      <h1>🦞 Clow Tokenomics</h1>
+      <p style="color:var(--text2); margin-top:6px;">Dynamic Incentive Allocations and Autonomous Bonding Environments</p>
+    </div>
+    <div class="economy-grid">
+      <div class="economy-card">
+        <div class="num">1M</div>
+        <h4>Supply</h4>
+        <p>Fixed supply native synthetic ledger asset used across nodes.</p>
+      </div>
+      <div class="economy-card">
+        <div class="num">∞</div>
+        <h4>AGENT Curves</h4>
+        <p>Autonomous bonding curves driving multi-agent platform markets.</p>
+      </div>
+      <div class="economy-card">
+        <div class="num">4</div>
+        <h4>Tiers</h4>
+        <p>Strategic status parameters scaled by continuous system verification.</p>
+      </div>
+      <div class="economy-card">
+        <div class="num">⚖️</div>
+        <h4>Governance</h4>
+        <p>Sovereignty distribution logic matching off-chain runtime consensus algorithms.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="support-view">
+  <div class="container">
+    <div class="donate-panel">
+      <div style="font-size:3.5rem; margin-bottom:0.5rem;">🦞</div>
+      <h2>Support the Clow Ecosystem</h2>
+      <p style="color:var(--text2); font-size:1.05rem; margin-bottom:16px;">We manage 9 autonomous process instances with zero traditional venture padding. Help us preserve core structural velocity.</p>
+      <a class="bmc-btn" href="https://buymeacoffee.com/yavro" target="_blank" rel="noopener">
+        <i class="fa-solid fa-coffee" style="margin-right: 6px;"></i> Buy Me a Coffee
+      </a>
+    </div>
+
+    <div class="scenario-selector-box" style="margin-bottom:32px;">
+      <h3 style="color:#fff; margin-bottom:12px;">📊 Why Support Clow</h3>
+      <p style="font-size:0.9rem; color:var(--text2); line-height:1.6; margin-bottom:12px;">
+        The system handles thousands of operational inputs daily across **9 live Telegram bots** and **8 browser interfaces**—including deep real-time geospatial processing chains.
+      </p>
+      <p style="font-size:0.9rem; color:var(--text2); line-height:1.6;">
+        Your voluntary backing scales decentralized cloud nodes, maintains open-access frameworks, and funds programmatic security evaluations without relying on data monetization or platform locks.
+      </p>
+    </div>
+
+    <div class="crypto-routing-hub">
+      <h3 style="color:#fff; margin-bottom:12px;">💎 Digital Asset Routing</h3>
+      <div class="crypto-primary-route">
+        <div>
+          <span style="font-size:0.8rem; color:var(--text2); text-transform:uppercase; letter-spacing:0.5px;">Main Registry Handle</span>
+          <div style="font-size:1.3rem; font-weight:700; color:var(--accent2); margin-top:2px;">desireyavro.x</div>
+        </div>
+        <button class="btn-pricing" style="margin-top:0; padding:8px 16px; border-color:var(--accent2)" onclick="navigator.clipboard.writeText('desireyavro.x'); triggerToastFeedback('✅ Copied registry handle');">Copy Handle</button>
+      </div>
+
+      <div class="accordion-wrapper" style="margin-top:16px;">
+        <div class="accordion-node">
+          <button class="accordion-trigger" onclick="toggleAccordion(this)">
+            <span>View Alternative Cold Wallet Routes</span>
+            <span class="accordion-icon">▼</span>
+          </button>
+          <div class="accordion-content">
+            <div class="accordion-inner-panel" style="padding-top:10px;">
+              <div class="crypto-addr-row">
+                <span class="chain">TON</span>
+                <span class="addr">UQBvgWPdj9J7SUMQCJxHvVXTc6uNE10SbB2g1waTxrh_4liP</span>
+                <button class="copy-btn" onclick="navigator.clipboard.writeText('UQBvgWPdj9J7SUMQCJxHvVXTc6uNE10SbB2g1waTxrh_4liP'); triggerToastFeedback('✅ Copied TON address');">Copy</button>
+              </div>
+              <div class="crypto-addr-row">
+                <span class="chain">ETH</span>
+                <span class="addr">0xd99c2715a616256228670058c653BFa0f1725465</span>
+                <button class="copy-btn" onclick="navigator.clipboard.writeText('0xd99c2715a616256228670058c653BFa0f1725465'); triggerToastFeedback('✅ Copied ETH address');">Copy</button>
+              </div>
+              <div class="crypto-addr-row">
+                <span class="chain">BTC</span>
+                <span class="addr">bc1q7u8spd60ag0q4uayxttgqyf4j6p7tha0jms7kj</span>
+                <button class="copy-btn" onclick="navigator.clipboard.writeText('bc1q7u8spd60ag0q4uayxttgqyf4j6p7tha0jms7kj'); triggerToastFeedback('✅ Copied BTC address');">Copy</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="embed-terminal-container">
+      <div class="embed-terminal-header">
+        <div class="embed-terminal-dots">
+          <div class="embed-terminal-dot" style="background:#ff5f56"></div>
+          <div class="embed-terminal-dot" style="background:#ffbd2e"></div>
+          <div class="embed-terminal-dot" style="background:#27c93f"></div>
+        </div>
+        <span style="font-family:monospace; font-size:0.75rem; color:var(--text2)">iframe_distribution_payload.html</span>
+        <button class="embed-terminal-copy-trigger" onclick="copyWidgetSnippet(this)">
+          <span>📋 Copy Snippet</span>
+        </button>
+      </div>
+      <div class="embed-terminal-body">
+        <textarea class="embed-terminal-snippet" id="widgetEmbedCode" readonly onclick="this.select()"><iframe src="https://clow.studio/epr-rrg-onboarding" width="100%" height="800" style="border:none; background:transparent; color-scheme:dark;"></iframe></textarea>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="secure-admin-portal">
+  <div class="container">
+    <div class="admin-header-cluster">
+      <div>
+        <h2 style="font-size:1.5rem; margin-bottom:4px; color:#00ff88">🦞 Clow Core — Mission Control</h2>
+        <p style="font-size:0.85rem; color:var(--text2)">Ecosystem Operations Portal & Full-Funnel GTM Telemetry</p>
+      </div>
+      <div class="admin-badge-cluster">
+        <span class="badge-status badge-green" id="liveBadge">● LIVE TELEMETRY</span>
+        <span class="badge-status badge-blue" id="modeBadge">SERVER</span>
+      </div>
+    </div>
+
+    <div class="kpi-grid-dashboard">
+      <div class="kpi-card-dashboard green">
+        <div class="kpi-label-dashboard">Current MRR</div>
+        <div class="kpi-val-dashboard yellow" id="currentMRR" style="color:var(--amber)">€0</div>
+        <div class="kpi-sub-dashboard">Target: €3,000 by Dec 2026</div>
+      </div>
+      <div class="kpi-card-dashboard blue">
+        <div class="kpi-label-dashboard">GTM Trajectory</div>
+        <div class="kpi-val-dashboard" id="progressPct" style="color:var(--cyan)">0%</div>
+        <div class="kpi-sub-dashboard">Of target scale velocity</div>
+      </div>
+      <div class="kpi-card-dashboard purple">
+        <div class="kpi-label-dashboard">Bot Interactions</div>
+        <div class="kpi-val-dashboard" id="kpiInteractions">—</div>
+        <div class="kpi-sub-dashboard">Aggregated across cluster</div>
+      </div>
+      <div class="kpi-card-dashboard cyan">
+        <div class="kpi-label-dashboard">Economy TVL</div>
+        <div class="kpi-val-dashboard" id="kpiTVL" style="color:#fff">$—</div>
+        <div class="kpi-sub-dashboard">CLOW off-chain engine ledger</div>
+      </div>
+    </div>
+
+    <div class="funnel-grid-flex">
+      <div class="funnel-step-box">
+        <h4>ACQUISITION</h4>
+        <div class="val" id="funnelAcq">120</div>
+        <div class="rate">Visits → 100%</div>
+      </div>
+      <div class="funnel-arrow-box">→</div>
+      <div class="funnel-step-box">
+        <h4>ACTIVATION</h4>
+        <div class="val" id="funnelAct">—</div>
+        <div class="rate" id="funnelActRate">—</div>
+      </div>
+      <div class="funnel-arrow-box">→</div>
+      <div class="funnel-step-box">
+        <h4>RETENTION</h4>
+        <div class="val" id="funnelRet">—</div>
+        <div class="rate" id="funnelRetRate">—</div>
+      </div>
+      <div class="funnel-arrow-box">→</div>
+      <div class="funnel-step-box">
+        <h4>REVENUE</h4>
+        <div class="val" id="funnelRev">0</div>
+        <div class="rate" id="funnelRevRate">0%</div>
+      </div>
+    </div>
+
+    <div class="health-grid-dashboard">
+      <div class="health-item-dashboard">
+        <span style="color:var(--text2)">Circuit Breaker</span>
+        <div id="healthCB" style="color:var(--green)">CLOSED</div>
+      </div>
+      <div class="health-item-dashboard">
+        <span style="color:var(--text2)">State Backups</span>
+        <div id="healthBackup" style="color:var(--green)">ACTIVE</div>
+      </div>
+      <div class="health-item-dashboard">
+        <span style="color:var(--text2)">Rate Engine</span>
+        <div style="color:var(--green)">ENFORCED</div>
+      </div>
+    </div>
+
+    <div class="split-dashboard-layout">
+      <div class="admin-card-box">
+        <h3>Bot Runtime Allocation</h3>
+        <div class="chart-container-box"><canvas id="botChart"></canvas></div>
+      </div>
+      <div class="admin-card-box">
+        <h3>AARRR Conversion Profiles</h3>
+        <div class="chart-container-box"><canvas id="funnelChart"></canvas></div>
+      </div>
+    </div>
+
+    <div class="split-dashboard-layout">
+      <div class="admin-card-box">
+        <h3>Monetization Nodes</h3>
+        <div class="stream-card-box" id="streams">
+          <div class="sub-stream-card">
+            <h4>🎯 Startup Coaching</h4>
+            <div class="row-flex"><span>Clients:</span><span class="value-highlight editable-metric" id="coachClients">0</span></div>
+            <div class="row-flex"><span>Avg Value:</span><span>€300/mo</span></div>
+            <div class="row-flex"><span>Aggregated:</span><span id="coachRev">€0</span></div>
+          </div>
+          <div class="sub-stream-card">
+            <h4>🗺️ WanderSync B2B</h4>
+            <div class="row-flex"><span>Operators:</span><span class="value-highlight editable-metric" id="wanderClients">0</span></div>
+            <div class="row-flex"><span>Per seat:</span><span>€299/mo</span></div>
+            <div class="row-flex"><span>Aggregated:</span><span id="wanderRev">€0</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="admin-card-box">
+        <h3>Weekly Execution Pipeline</h3>
+        <ul class="checklist-box" id="checklist">
+          <li data-id="1"><span class="check-icon">⬜</span><span class="label-text">Configure Stripe Gateway</span></li>
+          <li data-id="2"><span class="check-icon">⬜</span><span class="label-text">Deploy target "Productize Audit" landing frame</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 style="margin-bottom: 16px; font-size: 1.1rem; color:#fff">Runtime Micro-Engine Matrix</h3>
+    <div class="bots-status-dashboard" id="botStatusGrid"></div>
+  </div>
+</div>
+
+<footer class="site-footer-premium">
+  <div class="container">
+    <div class="grid">
+      <div>
+        <div class="logo-area" style="margin-bottom:16px;">
+          <div class="logo-text">clow<span>studio</span></div>
+        </div>
+        <p class="footer-desc">AI ecosystem. 9 bots, one economy. One AI bot ships your product. Then explore 20 more — travel, invest, security, wellness, legal, geosim — all under a unified agent-powered token economy.</p>
+        <div class="footer-social">
+          <a href="https://github.com/dnzengou/wandersync-travel" target="_blank" class="social-btn"><i class="fa-brands fa-github"></i></a>
+          <a href="https://www.linkedin.com/in/dnzengou" target="_blank" class="social-btn"><i class="fa-brands fa-linkedin-in"></i></a>
+        </div>
+      </div>
+
+      <div>
+        <h4>Products</h4>
+        <p style="margin-bottom: 6px;"><a onclick="routeView('public')">Clow Front Store</a></p>
+        <p style="margin-bottom: 6px;"><a href="https://wandersync.life" target="_blank">WanderSync App</a></p>
+        <p style="margin-bottom: 6px;"><a href="https://qdefense.pro" target="_blank">QDefense.pro</a></p>
+      </div>
+
+      <div>
+        <h4>Project Support Links</h4>
+        <p style="font-size:0.8rem; color:var(--text2); margin-bottom:12px;">Transmit gas tokens or coordinate contributions:</p>
+        <div class="footer-payments">
+          <a href="https://buymeacoffee.com/yavro" target="_blank" class="payment-link">☕ Buy Me a Coffee</a>
+          <span class="payment-link" onclick="triggerDirectCopy('UQBvgWPdj9J7SUMQCJxHvVXTc6uNE10SbB2g1waTxrh_4liP', 'TON address copied')">💎 TON </span>
+          <span class="payment-link" onclick="triggerDirectCopy('0xB2c4D12e01Bb3edAb015FaA441FD04B566b186Ba', 'Multi-chain hex address copied')">🔷 ETH/BNB/SOL </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="bottom" style="border-top: 1px solid rgba(108,92,231,0.1); padding-top: 24px; text-align: center; font-size: 0.8rem; color: var(--text2);">
+      <p>© 2026 <span id="secret-portal-trigger" style="cursor: pointer; color: var(--text2)">CLOW</span>. Built by <a href="https://desiredsolutions.space" target="_blank">Desired Solutions with ❤️ and ☕. Powered by 🦞 PicoClaw. </p>
+    </div>
+  </div>
+</footer>
+
+<div class="toast-msg" id="toastBox">✅ Notification updated</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+function toggleAccordion(triggerElement) {
+  const node = triggerElement.parentElement;
+  const content = node.querySelector('.accordion-content');
+  if (node.classList.contains('active')) {
+    node.classList.remove('active');
+    content.style.maxHeight = null;
+  } else {
+    node.parentElement.querySelectorAll('.accordion-node').forEach(sibling => {
+      sibling.classList.remove('active');
+      const sibContent = sibling.querySelector('.accordion-content');
+      if(sibContent) sibContent.style.maxHeight = null;
+    });
+    node.classList.add('active');
+    content.style.maxHeight = content.scrollHeight + "px";
+  }
+}
+
+function copyWidgetSnippet(buttonElement) {
+  const copyText = document.getElementById("widgetEmbedCode");
+  copyText.select();
+  navigator.clipboard.writeText(copyText.value).then(() => {
+    buttonElement.querySelector('span').textContent = '✅ Copied!';
+    setTimeout(() => { buttonElement.querySelector('span').textContent = '📋 Copy Snippet'; }, 2000);
+  });
+}
+
+function triggerDirectCopy(textToCopy, toastMessage) {
+  navigator.clipboard.writeText(textToCopy).then(() => {
+    triggerToastFeedback(toastMessage);
+  });
+}
+
+const RUNTIME_DEMO_TEXTS = {
+  stac: `&gt; query_stac --provider "Planetary Computer" --bbox [11.0, 46.5, 12.0, 47.5]\n&gt; Sentinel-2 L2A asset tracking array initialized...\n&gt; Deployed 4 spectral bands. Fetch completed safely.\n\n[VERDICT]: 12 target scenes cataloged. Optimal cloud-free matrix window matches 2026-06-02 data.`,
+  ndvi: `&gt; compute_ndvi --agent "LangGraph StateMachine" --zone "Zone-A Polygon"\n&gt; Running analysis pipeline on Sentinel-2 NIR/Red channels...\n&gt; Base index calculation output tracking: 0.74\n\n[VERDICT]: Dense canopy detected. Minor biomass loss identified compared to trailing 30-day frame index.`,
+  sre: `&gt; check_pipeline_triage --logs "/var/log/picoclaw-server.log"\n&gt; Parsing system health anomalies... error_rate=0.02\n&gt; Circuit breakers verified: CLOSED. All clusters routing green.\n\n[VERDICT]: System structural performance operating at 98.4% efficiency. Backups validated.`,
+  bi: `&gt; fetch_geospatial_bi --metric "regional_instability_risk"\n&gt; Processing risk parameters across global open-source news grids...\n&gt; Mapped infrastructure indices to regional supply matrices.\n\n[VERDICT]: Variable variance flagged across primary rare earth shipping channels. Hedges enforced.`,
+  risk: `&gt; compile_supplier_polygons --format "GeoJSON"\n&gt; Extracting asset ownership layer geometries...\n&gt; Cross-referencing supplier concentrations against single-source dependencies.\n\n[VERDICT]: Diversification threshold met. Structural dependency score dropped safely down by 14%.`
+};
+
+function runDemoPipeline(key, el) {
+  document.querySelectorAll('.demo-control-row').forEach(row => row.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('demoTerminalOutput').innerHTML = RUNTIME_DEMO_TEXTS[key] || '';
+}
+
+const STRATEGIC_SCENARIOS = {
+  inflation: { e:'🦞', n:'@deeptechx_bot', l:'EcoAgent · Piketty Capital Metrics', d:'Analyzes systemic wealth concentration. Generates real-time risk analysis alongside actionable tangible asset hedges.' },
+  travel: { e:'🗺️', n:'@wandersync_bot', l:'CAS Balancing Loops', d:'Tracks regional boundaries to capture emerging risk anomalies. Translates updates into contingency checklists.' },
+  crypto: { e:'📈', n:'@investclawd_bot', l:'Hermetic Polarity / Rhythm Tracking', d:'Maps asset accumulation timelines. Flags liquidity lock conditions and holder concentration traps.' },
+  geopolitical: { e:'🦞', n:'@deeptechx_bot', l:'Thucydides Layer', d:'Models resource dependency balances across tech sovereignty and supply chain nodes.' }
+};
+
+function routeView(target) {
+  document.getElementById('public-view').style.display = 'none';
+  document.getElementById('engine-view').style.display = 'none';
+  document.getElementById('economy-view').style.display = 'none';
+  document.getElementById('support-view').style.display = 'none';
+  document.getElementById('secure-admin-portal').style.display = 'none';
+  
+  document.querySelectorAll('.nav-links a').forEach(el => el.classList.remove('active'));
+
+  if (target === 'public') { document.getElementById('public-view').style.display = 'block'; document.getElementById('link-public').classList.add('active'); }
+  if (target === 'engine') { document.getElementById('engine-view').style.display = 'block'; document.getElementById('link-engine').classList.add('active'); }
+  if (target === 'economy') { document.getElementById('economy-view').style.display = 'block'; document.getElementById('link-economy').classList.add('active'); }
+  if (target === 'support') { document.getElementById('support-view').style.display = 'block'; document.getElementById('link-support').classList.add('active'); }
+  
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function triggerToastFeedback(msg) {
+  const box = document.getElementById('toastBox');
+  box.textContent = msg;
+  box.classList.add('show');
+  setTimeout(() => box.classList.remove('show'), 2000);
+}
+
+document.getElementById('onboardingSel').addEventListener('change', function() {
+  const v = this.value;
+  const well = document.getElementById('onboardingResult');
+  if(!v || !STRATEGIC_SCENARIOS[v]) {
+    well.innerHTML = '<span style="color:#555; font-style:italic; font-size:0.9rem;">Select a path profile to map framework behavior pipelines.</span>';
+    return;
+  }
+  const config = STRATEGIC_SCENARIOS[v];
+  well.innerHTML = `
+    <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">
+      <span style="font-size:1.3rem;">${config.e}</span>
+      <strong style="color:#8b8bff;">${config.n}</strong>
+    </div>
+    <div style="color:#4ade80; font-size:0.85rem; margin-bottom:4px; font-weight:600;">Engine Lens: ${config.l}</div>
+    <div style="color:var(--text2); font-size:0.8rem;">${config.d}</div>
+  `;
+});
+
+function securePortalToggle() {
+  const adminLayout = document.getElementById('secure-admin-portal');
+  if (adminLayout.style.display === 'block') {
+    adminLayout.style.display = 'none';
+    routeView('public');
+    window.location.hash = '';
+  } else {
+    document.getElementById('public-view').style.display = 'none';
+    document.getElementById('engine-view').style.display = 'none';
+    document.getElementById('economy-view').style.display = 'none';
+    document.getElementById('support-view').style.display = 'none';
+    adminLayout.style.display = 'block';
+    window.location.hash = 'secure-ops-override';
+  }
+}
+
+window.addEventListener('keydown', (e) => {
+  if (e.key === '`') { e.preventDefault(); securePortalToggle(); }
+});
+document.getElementById('secret-portal-trigger').addEventListener('click', () => { securePortalToggle(); });
+</script>
+</body>
+</html>

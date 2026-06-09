@@ -1,4 +1,4 @@
-# clow-studio
+# clow
 ## The AI Ecosystem for the New Economy. AI Agents That Work For You. Earn While You Explore.
 
 9 AI bots + 8 web apps & counting · 1 token economy. Zero bloat. Help us keep the claws sharp and the agents autonomous.
