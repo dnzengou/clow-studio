@@ -2,6 +2,13 @@
 
 **10 specialized AI bots. One 15MB binary. Deploy anywhere.**
 
+
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/Q5Q81SLST0)
+
+
+Specialized AI tools powered by Picoclaw — from building an agent-driven tech startup venture to complex systems analysis or fully automated travel planning, crypto security to mindfulness — all connected by the $Clow token economy. Start anywhere, earn everywhere.
+
+In a nutshell,
 Clow Studio is a **production-grade Go server** that runs an entire ecosystem of AI assistants from a single process. Strategic analysis, travel, crypto security, job search, productization, investment, legal, wellness, global intelligence, African digital money — all in one deploy.
 
 ---
